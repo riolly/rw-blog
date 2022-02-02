@@ -1,9 +1,8 @@
-import { Link, routes } from '@redwoodjs/router'
 import BlogPost from '../BlogPost/BlogPost'
 
 export const QUERY = gql`
-  query BlogPostsQuery {
-    posts {
+  query FindBlogPostQuery($id: Int!) {
+    blogPost: post(id: $id) {
       id
       title
       body
@@ -20,12 +19,6 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ posts }) => {
-  return (
-    <ul>
-      {posts.map((item) => (
-        <BlogPost post={item} key={item.id} />
-      ))}
-    </ul>
-  )
+export const Success = ({ blogPost }) => {
+  return <BlogPost post={blogPost} />
 }
